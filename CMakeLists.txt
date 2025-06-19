@@ -49,6 +49,11 @@ else()
         SYSTEM)
     FetchContent_MakeAvailable(SFML)
 
-target_compile_features(main PRIVATE cxx_std_20)
-target_link_libraries(main PRIVATE SFML::Graphics)
+    target_compile_features(RayCaster PRIVATE cxx_std_20)
+    target_link_libraries(RayCaster PRIVATE
+        SFML::System
+        SFML::Window
+        SFML::Graphics
+        SFML::Audio
+    )
 endif()
