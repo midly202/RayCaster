@@ -40,6 +40,11 @@ if(WIN32)
     )
 else()
     # Use system SFML on Linux/macOS
-    find_package(SFML 2.5 REQUIRED COMPONENTS system window graphics audio)
+    target_link_libraries(RayCaster PRIVATE
+        /usr/lib/libsfml-system.so
+        /usr/lib/libsfml-window.so
+        /usr/lib/libsfml-graphics.so
+        /usr/lib/libsfml-audio.so
+    )
     target_link_libraries(RayCaster PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
 endif()
