@@ -29,13 +29,13 @@ if(WIN32)
     set_target_properties(RayCaster PROPERTIES WIN32_EXECUTABLE TRUE)
 
 else() # Linux / macOS
-
-    find_package(SFML 3.0.1 REQUIRED COMPONENTS system window graphics audio)
+    # Link against local lib folder (adjust if needed)
+    target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/lib)
 
     target_link_libraries(RayCaster PRIVATE
-        sfml-system
-        sfml-window
         sfml-graphics
+        sfml-window
+        sfml-system
         sfml-audio
     )
 
