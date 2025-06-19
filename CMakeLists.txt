@@ -14,10 +14,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Allow multi-byte character set compatibility if on MSVC
-if(MSVC)
-    add_definitions(-DUNICODE -D_UNICODE)
-    add_compile_options("/source-charset:utf-8")
-endif()
+# if(MSVC)
+#     add_definitions(-DUNICODE -D_UNICODE)
+#     add_compile_options("/source-charset:utf-8")
+# endif()
 
 # Add executable
 add_executable(RayCaster src/main.cpp)
@@ -40,11 +40,15 @@ if(WIN32)
     )
 else()
     # Use system SFML on Linux/macOS
-    target_link_libraries(RayCaster PRIVATE
-        /usr/lib/libsfml-system.so
-        /usr/lib/libsfml-window.so
-        /usr/lib/libsfml-graphics.so
-        /usr/lib/libsfml-audio.so
-    )
-    target_link_libraries(RayCaster PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
+    include(FetchContent)
+    FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 3.0.1
+        GIT_SHALLOW ON
+        EXCLUDE_FROM_ALL
+        SYSTEM)
+    FetchContent_MakeAvailable(SFML)
+
+target_compile_features(main PRIVATE cxx_std_20)
+target_link_libraries(main PRIVATE SFML::Graphics)
 endif()
