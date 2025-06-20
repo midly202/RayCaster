@@ -12,10 +12,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Add executable
-add_executable(RayCaster src/main.cpp)
+add_executable(RayCaster 
+    src/main.cpp
+    src/render/render.h
+    src/render/render.cpp
+)
 
-# Include your headers
+# Include headers
 target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML)
+target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/src/render)
 
 # Platform-specific logic
 if(WIN32)
@@ -24,6 +29,7 @@ if(WIN32)
     target_link_libraries(RayCaster PRIVATE
         $<$<CONFIG:Debug>:sfml-system-d sfml-window-d sfml-graphics-d sfml-audio-d>
         $<$<CONFIG:Release>:sfml-system sfml-window sfml-graphics sfml-audio>
+        opengl32
     )
 
     set_target_properties(RayCaster PROPERTIES WIN32_EXECUTABLE TRUE)
