@@ -19,7 +19,7 @@ target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 # Platform-specific logic
 if(WIN32)
-    target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/lib)
+    target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libWin)
 
     target_link_libraries(RayCaster PRIVATE
         $<$<CONFIG:Debug>:sfml-system-d sfml-window-d sfml-graphics-d sfml-audio-d>
@@ -30,7 +30,7 @@ if(WIN32)
 
 else() # Linux / macOS
     # Link against local lib folder (adjust if needed)
-    target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/lib)
+    target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libLin)
 
     target_link_libraries(RayCaster PRIVATE
         sfml-graphics
