@@ -29,14 +29,16 @@ if(WIN32)
 
     set_target_properties(RayCaster PROPERTIES WIN32_EXECUTABLE TRUE)
 
-else() # Linux / macOS
-    # Link against local lib folder (adjust if needed)
+else() # Linux
+
     target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libLin)
 
+    # Runtime linker path for .so files
     set_target_properties(RayCaster PROPERTIES
         BUILD_RPATH "${CMAKE_SOURCE_DIR}/include/SFML/libLin"
     )
 
+    # Explicit full paths to .so files
     target_link_libraries(RayCaster PRIVATE
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-graphics.so
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-window.so
@@ -44,5 +46,12 @@ else() # Linux / macOS
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-audio.so
     )
 
+    # Manually add required system dependencies (optional if already installed)
+    find_library(FLAC_LIB NAMES FLAC)
+    find_library(OGG_LIB NAMES ogg)
+    find_library(VORBIS_LIB NAMES vorbis)
+    find_library(OPENAL_LIB NAMES openal)
+
+    target_link_libraries(RayCaster PRIVATE ${FLAC_LIB} ${OGG_LIB} ${VORBIS_LIB} ${OPENAL_LIB})
 
 endif()
