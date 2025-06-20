@@ -32,6 +32,10 @@ else() # Linux / macOS
     # Link against local lib folder (adjust if needed)
     target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libLin)
 
+    set_target_properties(RayCaster PROPERTIES
+        BUILD_RPATH "${CMAKE_SOURCE_DIR}/include/SFML/libLin"
+    )
+
     target_link_libraries(RayCaster PRIVATE
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-graphics.so
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-window.so
