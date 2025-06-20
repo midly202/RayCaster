@@ -47,11 +47,11 @@ else() # Linux
     )
 
     # Manually add required system dependencies (optional if already installed)
-    find_library(FLAC_LIB NAMES FLAC)
-    find_library(OGG_LIB NAMES ogg)
-    find_library(VORBIS_LIB NAMES vorbis)
-    find_library(OPENAL_LIB NAMES openal)
+    # find_library(FLAC_LIB NAMES FLAC)
+    # find_library(OGG_LIB NAMES ogg)
+    # find_library(VORBIS_LIB NAMES vorbis)
+    # find_library(OPENAL_LIB NAMES openal)
 
-    target_link_libraries(RayCaster PRIVATE ${FLAC_LIB} ${OGG_LIB} ${VORBIS_LIB} ${OPENAL_LIB})
+    # target_link_libraries(RayCaster PRIVATE ${FLAC_LIB} ${OGG_LIB} ${VORBIS_LIB} ${OPENAL_LIB})
 
 endif()
