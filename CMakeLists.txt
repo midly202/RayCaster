@@ -15,7 +15,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(RayCaster src/main.cpp)
 
 # Include your headers
-target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include)
+# target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML)
 
 # Platform-specific logic
 if(WIN32)

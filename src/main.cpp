@@ -1,6 +1,6 @@
 #include <iostream>
-#include "SFML/Graphics.hpp"
-#include "SFML/Window.hpp"
+#include "Graphics.hpp"
+#include "Window.hpp"
 
 #ifdef _WIN32
 #include <windows.h>
