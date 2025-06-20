@@ -3,9 +3,11 @@ RayCaster: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o \
   CMakeFiles/RayCaster.dir/src/main.cpp.o \
+  CMakeFiles/RayCaster.dir/src/render/render.cpp.o \
   /home/midly/code/RayCaster/include/SFML/libLin/libsfml-graphics.so \
   /home/midly/code/RayCaster/include/SFML/libLin/libsfml-window.so \
   /home/midly/code/RayCaster/include/SFML/libLin/libsfml-system.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libGL.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libm.so \
@@ -38,6 +40,8 @@ RayCaster: \
   /usr/lib/libXrandr.so.2 \
   /usr/lib/libXcursor.so.1 \
   /usr/lib/libudev.so.1 \
+  /usr/lib/libGLdispatch.so.0 \
+  /usr/lib/libGLX.so.0 \
   /usr/lib/libz.so.1 \
   /usr/lib/libbz2.so.1.0 \
   /usr/lib/libpng16.so.16 \
@@ -63,11 +67,15 @@ RayCaster: \
 
 CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
+CMakeFiles/RayCaster.dir/src/render/render.cpp.o:
+
 /home/midly/code/RayCaster/include/SFML/libLin/libsfml-graphics.so:
 
 /home/midly/code/RayCaster/include/SFML/libLin/libsfml-window.so:
 
 /home/midly/code/RayCaster/include/SFML/libLin/libsfml-system.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libGL.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libstdc++.so:
 
@@ -132,6 +140,10 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/lib/libXcursor.so.1:
 
 /usr/lib/libudev.so.1:
+
+/usr/lib/libGLdispatch.so.0:
+
+/usr/lib/libGLX.so.0:
 
 /usr/lib/libz.so.1:
 

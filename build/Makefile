@@ -153,6 +153,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/render/render.o: src/render/render.cpp.o
+.PHONY : src/render/render.o
+
+# target to build an object file
+src/render/render.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/render/render.cpp.o
+.PHONY : src/render/render.cpp.o
+
+src/render/render.i: src/render/render.cpp.i
+.PHONY : src/render/render.i
+
+# target to preprocess a source file
+src/render/render.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/render/render.cpp.i
+.PHONY : src/render/render.cpp.i
+
+src/render/render.s: src/render/render.cpp.s
+.PHONY : src/render/render.s
+
+# target to generate assembly for a file
+src/render/render.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/render/render.cpp.s
+.PHONY : src/render/render.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +189,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/render/render.o"
+	@echo "... src/render/render.i"
+	@echo "... src/render/render.s"
 .PHONY : help
 
 

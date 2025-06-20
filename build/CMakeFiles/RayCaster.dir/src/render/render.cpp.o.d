@@ -1,5 +1,7 @@
-CMakeFiles/RayCaster.dir/src/main.cpp.o: \
- /home/midly/code/RayCaster/src/main.cpp /usr/include/stdc-predef.h \
+CMakeFiles/RayCaster.dir/src/render/render.cpp.o: \
+ /home/midly/code/RayCaster/src/render/render.cpp \
+ /usr/include/stdc-predef.h \
+ /home/midly/code/RayCaster/src/render/render.h \
  /home/midly/code/RayCaster/include/SFML/Graphics.hpp \
  /home/midly/code/RayCaster/include/SFML/Window.hpp \
  /home/midly/code/RayCaster/include/SFML/System.hpp \
@@ -258,4 +260,5 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o: \
  /home/midly/code/RayCaster/include/SFML/Graphics/Sprite.hpp \
  /home/midly/code/RayCaster/include/SFML/Graphics/Text.hpp \
  /home/midly/code/RayCaster/include/SFML/Graphics/VertexBuffer.hpp \
- /home/midly/code/RayCaster/src/render/render.h
+ /home/midly/code/RayCaster/include/SFML/OpenGL.hpp /usr/include/GL/gl.h \
+ /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h

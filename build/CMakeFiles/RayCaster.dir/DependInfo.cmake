@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/midly/code/RayCaster/src/main.cpp" "CMakeFiles/RayCaster.dir/src/main.cpp.o" "gcc" "CMakeFiles/RayCaster.dir/src/main.cpp.o.d"
+  "/home/midly/code/RayCaster/src/render/render.cpp" "CMakeFiles/RayCaster.dir/src/render/render.cpp.o" "gcc" "CMakeFiles/RayCaster.dir/src/render/render.cpp.o.d"
   "" "RayCaster" "gcc" "CMakeFiles/RayCaster.dir/link.d"
   )
 

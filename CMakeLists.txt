@@ -14,7 +14,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Add executable
 add_executable(RayCaster 
     src/main.cpp
-    src/render/render.h
     src/render/render.cpp
 )
 
@@ -37,10 +36,10 @@ if(WIN32)
 else() # Linux
     target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libLin)
 
-    # Explicit full paths to .so files
     target_link_libraries(RayCaster PRIVATE
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-graphics.so
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-window.so
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-system.so
+        GL
     )
 endif()

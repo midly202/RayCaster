@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/midly/code/RayCaster/include/SFML
+CXX_INCLUDES = -I/home/midly/code/RayCaster/include/SFML -I/home/midly/code/RayCaster/src/render
 
 CXX_FLAGS = -std=gnu++20
 
