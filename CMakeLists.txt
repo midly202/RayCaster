@@ -33,10 +33,11 @@ else() # Linux / macOS
     target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libLin)
 
     target_link_libraries(RayCaster PRIVATE
-        sfml-graphics
-        sfml-window
-        sfml-system
-        sfml-audio
+        ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-graphics.so
+        ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-window.so
+        ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-system.so
+        ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-audio.so
     )
+
 
 endif()
