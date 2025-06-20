@@ -15,7 +15,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(RayCaster src/main.cpp)
 
 # Include your headers
-# target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML)
 
 # Platform-specific logic
@@ -30,28 +29,12 @@ if(WIN32)
     set_target_properties(RayCaster PROPERTIES WIN32_EXECUTABLE TRUE)
 
 else() # Linux
-
     target_link_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML/libLin)
-
-    # Runtime linker path for .so files
-    set_target_properties(RayCaster PROPERTIES
-        BUILD_RPATH "${CMAKE_SOURCE_DIR}/include/SFML/libLin"
-    )
 
     # Explicit full paths to .so files
     target_link_libraries(RayCaster PRIVATE
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-graphics.so
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-window.so
         ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-system.so
-        ${CMAKE_SOURCE_DIR}/include/SFML/libLin/libsfml-audio.so
     )
-
-    # Manually add required system dependencies (optional if already installed)
-    # find_library(FLAC_LIB NAMES FLAC)
-    # find_library(OGG_LIB NAMES ogg)
-    # find_library(VORBIS_LIB NAMES vorbis)
-    # find_library(OPENAL_LIB NAMES openal)
-
-    # target_link_libraries(RayCaster PRIVATE ${FLAC_LIB} ${OGG_LIB} ${VORBIS_LIB} ${OPENAL_LIB})
-
 endif()

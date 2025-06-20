@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/midly/code/RayCaster/build",
+  "command": "/usr/bin/c++  -I/home/midly/code/RayCaster/include/SFML -std=gnu++20 -o CMakeFiles/RayCaster.dir/src/main.cpp.o -c /home/midly/code/RayCaster/src/main.cpp",
+  "file": "/home/midly/code/RayCaster/src/main.cpp",
+  "output": "CMakeFiles/RayCaster.dir/src/main.cpp.o"
+}
+]
