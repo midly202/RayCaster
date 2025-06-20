@@ -1,6 +1,7 @@
 #include "Graphics.hpp"  // IWYU pragma: keep
 #include "Window.hpp"    // IWYU pragma: keep
 #include "render.h"
+#include "player.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -25,6 +26,9 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::KeyPressed)
+                PlayerMove(event.key.code);
         }
 
         // Render
