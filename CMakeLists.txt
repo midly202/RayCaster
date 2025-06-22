@@ -15,7 +15,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(RayCaster 
     src/main.cpp
     src/render/render.cpp
- "src/player/player.h" "src/player/player.cpp")
+    src/player/player.cpp
+)
 
 # Include headers
 target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML)

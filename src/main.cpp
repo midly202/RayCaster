@@ -15,7 +15,7 @@ int main()
     window.setVerticalSyncEnabled(true);
 
     // Init GL
-    init();
+    Init();
 
     // Main loop
     while (window.isOpen())
@@ -32,7 +32,7 @@ int main()
         }
 
         // Render
-        display();
+        Display();
 
         // Swap buffers
         window.display();

@@ -1,3 +1,8 @@
+#define PI 3.14159265358979323846
+#define PI2 PI / 2.0
+#define PI3 3 * PI / 2.0
+#define DEGREE (PI / 180.0)
+
 struct Player
 {
 	float posX, posY;

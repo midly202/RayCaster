@@ -2,7 +2,6 @@
 #include "structs.h"
 #include <Window.hpp>
 #include <math.h>
-#define PI 3.14159265358979323846
 
 Player player;
 Map map;

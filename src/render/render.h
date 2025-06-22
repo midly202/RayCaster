@@ -1,7 +1,11 @@
-void display();
+void Display();
 
-void init();
+void Init();
 
-void drawPlayer();
+void DrawPlayer();
 
-void drawMap();
+void DrawMap();
+
+void CastRay();
+
+float Distance(float startX, float startY, float endX, float endY, float angle);
