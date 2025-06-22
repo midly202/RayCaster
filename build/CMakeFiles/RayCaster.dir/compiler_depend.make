@@ -78,6 +78,7 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o: /home/midly/code/RayCaster/src/main.cpp
   /home/midly/code/RayCaster/include/SFML/Window/WindowBase.hpp \
   /home/midly/code/RayCaster/include/SFML/Window/WindowHandle.hpp \
   /home/midly/code/RayCaster/include/SFML/Window/WindowStyle.hpp \
+  /home/midly/code/RayCaster/src/player/player.h \
   /home/midly/code/RayCaster/src/render/render.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
@@ -399,7 +400,9 @@ CMakeFiles/RayCaster.dir/src/render/render.cpp.o: /home/midly/code/RayCaster/src
   /home/midly/code/RayCaster/include/SFML/Window/WindowBase.hpp \
   /home/midly/code/RayCaster/include/SFML/Window/WindowHandle.hpp \
   /home/midly/code/RayCaster/include/SFML/Window/WindowStyle.hpp \
+  /home/midly/code/RayCaster/src/player/player.h \
   /home/midly/code/RayCaster/src/render/render.h \
+  /home/midly/code/RayCaster/src/utils/structs.h \
   /usr/include/GL/gl.h \
   /usr/include/GL/glext.h \
   /usr/include/KHR/khrplatform.h \
@@ -645,98 +648,6 @@ CMakeFiles/RayCaster.dir/src/render/render.cpp.o: /home/midly/code/RayCaster/src
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stddef.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdint.h
 
-RayCaster: /home/midly/code/RayCaster/include/SFML/libLin/libsfml-graphics.so \
-  /home/midly/code/RayCaster/include/SFML/libLin/libsfml-system.so \
-  /home/midly/code/RayCaster/include/SFML/libLin/libsfml-window.so \
-  /usr/lib/Scrt1.o \
-  /usr/lib/crti.o \
-  /usr/lib/crtn.o \
-  /usr/lib/libGL.so \
-  /usr/lib/libc.so \
-  /usr/lib/libgcc_s.so \
-  /usr/lib/libgcc_s.so.1 \
-  /usr/lib/libm.so \
-  /usr/lib/libstdc++.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/libgcc.a \
-  /usr/lib/ld-linux-x86-64.so.2 \
-  /usr/lib/libGLX.so.0 \
-  /usr/lib/libGLdispatch.so.0 \
-  /usr/lib/libX11.so.6 \
-  /usr/lib/libXau.so.6 \
-  /usr/lib/libXcursor.so.1 \
-  /usr/lib/libXdmcp.so.6 \
-  /usr/lib/libXext.so.6 \
-  /usr/lib/libXfixes.so.3 \
-  /usr/lib/libXrandr.so.2 \
-  /usr/lib/libXrender.so.1 \
-  /usr/lib/libbrotlicommon.so.1 \
-  /usr/lib/libbrotlidec.so.1 \
-  /usr/lib/libbz2.so.1.0 \
-  /usr/lib/libc.so.6 \
-  /usr/lib/libc_nonshared.a \
-  /usr/lib/libcap.so.2 \
-  /usr/lib/libfreetype.so.6 \
-  /usr/lib/libglib-2.0.so.0 \
-  /usr/lib/libgraphite2.so.3 \
-  /usr/lib/libharfbuzz.so.0 \
-  /usr/lib/libm.so.6 \
-  /usr/lib/libmvec.so.1 \
-  /usr/lib/libpcre2-8.so.0 \
-  /usr/lib/libpng16.so.16 \
-  /usr/lib/libudev.so.1 \
-  /usr/lib/libxcb.so.1 \
-  /usr/lib/libz.so.1 \
-  CMakeFiles/RayCaster.dir/src/main.cpp.o \
-  CMakeFiles/RayCaster.dir/src/render/render.cpp.o
-
-
-CMakeFiles/RayCaster.dir/src/main.cpp.o:
-
-/usr/lib/libpng16.so.16:
-
-/usr/lib/libharfbuzz.so.0:
-
-/usr/lib/libgraphite2.so.3:
-
-/usr/lib/libcap.so.2:
-
-/usr/lib/libc_nonshared.a:
-
-/usr/lib/libc.so.6:
-
-/usr/lib/libbz2.so.1.0:
-
-/usr/lib/libbrotlidec.so.1:
-
-/usr/lib/libXrender.so.1:
-
-/usr/lib/libXfixes.so.3:
-
-/usr/lib/libXext.so.6:
-
-/usr/lib/libXdmcp.so.6:
-
-/usr/lib/libX11.so.6:
-
-/usr/lib/libGLdispatch.so.0:
-
-/usr/lib/libGLX.so.0:
-
-/usr/lib/ld-linux-x86-64.so.2:
-
-/usr/lib/libm.so:
-
-/usr/lib/crtn.o:
-
-/usr/lib/Scrt1.o:
-
-/home/midly/code/RayCaster/include/SFML/libLin/libsfml-system.so:
-
-/usr/lib/crti.o:
-
-/home/midly/code/RayCaster/include/SFML/libLin/libsfml-graphics.so:
 
 /usr/include/KHR/khrplatform.h:
 
@@ -751,8 +662,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/time.h:
 
 /usr/include/sys/types.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/libgcc.a:
 
 /usr/include/sys/cdefs.h:
 
@@ -792,15 +701,11 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++locale.h:
 
-/usr/lib/libfreetype.so.6:
-
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++config.h:
 
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
 
 /usr/include/c++/15.1.1/vector:
-
-/usr/lib/libglib-2.0.so.0:
 
 /usr/include/c++/15.1.1/typeinfo:
 
@@ -812,11 +717,7 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /usr/include/c++/15.1.1/string:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o:
-
 /usr/include/c++/15.1.1/stdexcept:
-
-/usr/lib/libXau.so.6:
 
 /usr/include/c++/15.1.1/pstl/pstl_config.h:
 
@@ -835,6 +736,8 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/iterator:
 
 /usr/include/c++/15.1.1/iosfwd:
+
+/usr/include/c++/15.1.1/ios:
 
 /usr/include/bits/types/__locale_t.h:
 
@@ -855,8 +758,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/bits/stdlib-float.h:
 
 /home/midly/code/RayCaster/include/SFML/Graphics/Drawable.hpp:
-
-/usr/lib/libstdc++.so:
 
 /usr/include/locale.h:
 
@@ -910,13 +811,9 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /usr/include/asm/posix_types.h:
 
-/usr/lib/libgcc_s.so.1:
-
 /home/midly/code/RayCaster/include/SFML/Window/WindowStyle.hpp:
 
 /home/midly/code/RayCaster/include/SFML/Window/Keyboard.hpp:
-
-/usr/lib/libxcb.so.1:
 
 /usr/include/bits/endian.h:
 
@@ -930,13 +827,9 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /usr/include/asm-generic/errno-base.h:
 
-/home/midly/code/RayCaster/include/SFML/Graphics.hpp:
-
 /usr/include/alloca.h:
 
 /home/midly/code/RayCaster/include/SFML/Window/Cursor.hpp:
-
-/usr/lib/libudev.so.1:
 
 /home/midly/code/RayCaster/src/render/render.h:
 
@@ -1004,8 +897,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /home/midly/code/RayCaster/include/SFML/Graphics/Shader.hpp:
 
-/usr/lib/libpcre2-8.so.0:
-
 /home/midly/code/RayCaster/include/SFML/Graphics/Transform.hpp:
 
 /usr/include/asm/bitsperlong.h:
@@ -1072,10 +963,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /home/midly/code/RayCaster/include/SFML/System/Vector3.hpp:
 
-/usr/lib/libmvec.so.1:
-
-/usr/lib/libXrandr.so.2:
-
 /home/midly/code/RayCaster/include/SFML/Window/Event.hpp:
 
 /home/midly/code/RayCaster/include/SFML/Graphics/BlendMode.hpp:
@@ -1087,6 +974,8 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /home/midly/code/RayCaster/include/SFML/Graphics/VertexArray.hpp:
 
 /home/midly/code/RayCaster/include/SFML/System/Err.hpp:
+
+/home/midly/code/RayCaster/include/SFML/Graphics.hpp:
 
 /home/midly/code/RayCaster/include/SFML/Graphics/RectangleShape.hpp:
 
@@ -1107,8 +996,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /home/midly/code/RayCaster/include/SFML/Graphics/Glsl.hpp:
 
 /home/midly/code/RayCaster/include/SFML/Graphics/Vertex.hpp:
-
-/usr/lib/libc.so:
 
 /usr/include/bits/pthreadtypes.h:
 
@@ -1133,8 +1020,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/bits/types/__fpos_t.h:
 
 /usr/include/bits/types/clock_t.h:
-
-/usr/lib/libgcc_s.so:
 
 /usr/include/c++/15.1.1/debug/debug.h:
 
@@ -1182,6 +1067,8 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /home/midly/code/RayCaster/include/SFML/System/Thread.hpp:
 
+/home/midly/code/RayCaster/src/player/player.h:
+
 /usr/include/bits/locale.h:
 
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
@@ -1193,8 +1080,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/bits/move.h:
 
 /usr/include/c++/15.1.1/bits/stl_heap.h:
-
-/usr/lib/libbrotlicommon.so.1:
 
 /usr/include/wchar.h:
 
@@ -1239,8 +1124,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/cwctype:
 
 /usr/include/bits/typesizes.h:
-
-/usr/lib/libz.so.1:
 
 /usr/include/bits/uintn-identity.h:
 
@@ -1298,15 +1181,11 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /usr/include/c++/15.1.1/bits/cxxabi_init_exception.h:
 
-/usr/lib/libXcursor.so.1:
-
 /home/midly/code/RayCaster/include/SFML/System/Clock.hpp:
 
 /usr/include/c++/15.1.1/bits/stl_iterator_base_funcs.h:
 
 /usr/include/c++/15.1.1/bits/erase_if.h:
-
-/home/midly/code/RayCaster/include/SFML/libLin/libsfml-window.so:
 
 /usr/include/c++/15.1.1/bits/exception_ptr.h:
 
@@ -1322,8 +1201,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 /usr/include/c++/15.1.1/bits/locale_conv.h:
 
-/usr/include/c++/15.1.1/ios:
-
 /usr/include/c++/15.1.1/bits/locale_facets.h:
 
 /usr/include/c++/15.1.1/bits/streambuf.tcc:
@@ -1333,8 +1210,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/bits/new_allocator.h:
 
 /usr/include/c++/15.1.1/bits/ostream.h:
-
-/usr/lib/libm.so.6:
 
 /usr/include/c++/15.1.1/bits/ranges_algo.h:
 
@@ -1347,8 +1222,6 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o:
 /usr/include/c++/15.1.1/bits/predefined_ops.h:
 
 /usr/include/c++/15.1.1/ctime:
-
-CMakeFiles/RayCaster.dir/src/render/render.cpp.o:
 
 /home/midly/code/RayCaster/include/SFML/Window/VideoMode.hpp:
 
@@ -1371,6 +1244,8 @@ CMakeFiles/RayCaster.dir/src/render/render.cpp.o:
 /usr/include/c++/15.1.1/bits/ranges_cmp.h:
 
 /usr/include/c++/15.1.1/bits/refwrap.h:
+
+/home/midly/code/RayCaster/src/utils/structs.h:
 
 /usr/include/bits/errno.h:
 
@@ -1398,8 +1273,6 @@ CMakeFiles/RayCaster.dir/src/render/render.cpp.o:
 
 /usr/include/c++/15.1.1/bits/stl_uninitialized.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o:
-
 /usr/include/asm-generic/types.h:
 
 /usr/include/asm-generic/bitsperlong.h:
@@ -1411,8 +1284,6 @@ CMakeFiles/RayCaster.dir/src/render/render.cpp.o:
 /usr/include/c++/15.1.1/bits/uses_allocator.h:
 
 /usr/include/c++/15.1.1/bits/vector.tcc:
-
-/usr/lib/libGL.so:
 
 /usr/include/c++/15.1.1/bits/version.h:
 

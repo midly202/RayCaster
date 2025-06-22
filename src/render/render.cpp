@@ -1,8 +1,11 @@
 #include "render.h"
-#include "Graphics.hpp"
-#include "OpenGL.hpp"
-#include "structs.h"
+
+#include <cmath>
+
+#include "Graphics.hpp"  // IWYU pragma: keep
+#include "OpenGL.hpp"    // IWYU pragma: keep
 #include "player.h"
+#include "structs.h"
 
 extern Player player;
 extern Map map;
@@ -17,12 +20,12 @@ void Init()
     glMatrixMode(GL_MODELVIEW);
 }
 
-void Display() 
+void Display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     DrawMap();
     DrawPlayer();
-	CastRay();
+    CastRay();
 }
 
 void DrawPlayer()
@@ -30,15 +33,15 @@ void DrawPlayer()
     // Player location
     glColor3f(1, 1, 0);
     glPointSize(8);
-	glBegin(GL_POINTS);
+    glBegin(GL_POINTS);
     glVertex2i(player.posX, player.posY);
-	glEnd();
+    glEnd();
 
     // Player direction
     glLineWidth(3);
-	glBegin(GL_LINES);
+    glBegin(GL_LINES);
     glVertex2i(player.posX, player.posY);
-	glVertex2i(player.posX + player.dirX * 5, player.posY + player.dirY * 5);
+    glVertex2i(player.posX + player.dirX * 5, player.posY + player.dirY * 5);
     glEnd();
 }
 
@@ -50,9 +53,9 @@ void DrawMap()
         for (tileX = 0; tileX < map.width; ++tileX)
         {
             if (map.map[tileY * map.width + tileX] == 1)
-                glColor3f(1, 1, 1); // White for tile
+                glColor3f(1, 1, 1);  // White for tile
             else
-                glColor3f(0, 0, 0); // Black for empty space
+                glColor3f(0, 0, 0);  // Black for empty space
 
             offsetX = tileX * map.size;
             offsetY = tileY * map.size;
@@ -70,13 +73,13 @@ void DrawMap()
 void CastRay()
 {
     int rayIndex{}, mapX{}, mapY{}, mapPosition{}, depthOfField{};
-    float rayX{}, rayY{}, rayAngle{}, offsetX{}, offsetY{};
+    double rayX{}, rayY{}, rayAngle{}, offsetX{}, offsetY{};
 
     rayAngle = player.angle - DEGREE * 30;
-	if (rayAngle < 0) 
+    if (rayAngle < 0)
         rayAngle += 2 * PI;
-	if (rayAngle > 2 * PI)
-		rayAngle -= 2 * PI;
+    if (rayAngle > 2 * PI)
+        rayAngle -= 2 * PI;
 
     // rayAngle = player.angle;
     for (rayIndex = 0; rayIndex < 60; ++rayIndex)
@@ -84,7 +87,7 @@ void CastRay()
         depthOfField = 0;
         float horizontalDistance = 1000000.0f;
         float horizontalX = player.posX;
-		float horizontalY = player.posY;
+        float horizontalY = player.posY;
         float aTan = -1 / tan(rayAngle);
         if (rayAngle > PI)
         {
@@ -113,9 +116,9 @@ void CastRay()
             mapPosition = mapY * map.width + mapX;
             if (mapPosition > 0 && mapPosition < map.width * map.height && map.map[mapPosition] > 0)
             {
-				horizontalX = rayX;
-				horizontalY = rayY;
-				horizontalDistance = Distance(player.posX, player.posY, horizontalX, horizontalY, rayAngle);
+                horizontalX = rayX;
+                horizontalY = rayY;
+                horizontalDistance = Distance(player.posX, player.posY, horizontalX, horizontalY, rayAngle);
                 depthOfField = 8;
             }
             else
@@ -171,7 +174,7 @@ void CastRay()
                 depthOfField++;
             }
         }
-        
+
         if (verticalDistance < horizontalDistance)
         {
             rayX = verticalX;
@@ -181,8 +184,8 @@ void CastRay()
         {
             rayX = horizontalX;
             rayY = horizontalY;
-		}
-        
+        }
+
         glColor3f(1, 0, 0);
         glLineWidth(3);
         glBegin(GL_LINES);

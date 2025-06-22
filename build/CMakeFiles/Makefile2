@@ -85,12 +85,12 @@ clean: CMakeFiles/RayCaster.dir/clean
 CMakeFiles/RayCaster.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/midly/code/RayCaster/build/CMakeFiles --progress-num=1,2,3 "Built target RayCaster"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/midly/code/RayCaster/build/CMakeFiles --progress-num=1,2,3,4 "Built target RayCaster"
 .PHONY : CMakeFiles/RayCaster.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RayCaster.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/midly/code/RayCaster/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/midly/code/RayCaster/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RayCaster.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/midly/code/RayCaster/build/CMakeFiles 0
 .PHONY : CMakeFiles/RayCaster.dir/rule
@@ -102,7 +102,7 @@ RayCaster: CMakeFiles/RayCaster.dir/rule
 # codegen rule for target.
 CMakeFiles/RayCaster.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/midly/code/RayCaster/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target RayCaster"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/midly/code/RayCaster/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target RayCaster"
 .PHONY : CMakeFiles/RayCaster.dir/codegen
 
 # clean rule for target.

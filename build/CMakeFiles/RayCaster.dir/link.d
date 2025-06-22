@@ -4,6 +4,7 @@ RayCaster: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o \
   CMakeFiles/RayCaster.dir/src/main.cpp.o \
   CMakeFiles/RayCaster.dir/src/render/render.cpp.o \
+  CMakeFiles/RayCaster.dir/src/player/player.cpp.o \
   /home/midly/code/RayCaster/include/SFML/libLin/libsfml-graphics.so \
   /home/midly/code/RayCaster/include/SFML/libLin/libsfml-window.so \
   /home/midly/code/RayCaster/include/SFML/libLin/libsfml-system.so \
@@ -68,6 +69,8 @@ RayCaster: \
 CMakeFiles/RayCaster.dir/src/main.cpp.o:
 
 CMakeFiles/RayCaster.dir/src/render/render.cpp.o:
+
+CMakeFiles/RayCaster.dir/src/player/player.cpp.o:
 
 /home/midly/code/RayCaster/include/SFML/libLin/libsfml-graphics.so:
 

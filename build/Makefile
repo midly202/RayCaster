@@ -153,6 +153,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/player/player.o: src/player/player.cpp.o
+.PHONY : src/player/player.o
+
+# target to build an object file
+src/player/player.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/player/player.cpp.o
+.PHONY : src/player/player.cpp.o
+
+src/player/player.i: src/player/player.cpp.i
+.PHONY : src/player/player.i
+
+# target to preprocess a source file
+src/player/player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/player/player.cpp.i
+.PHONY : src/player/player.cpp.i
+
+src/player/player.s: src/player/player.cpp.s
+.PHONY : src/player/player.s
+
+# target to generate assembly for a file
+src/player/player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RayCaster.dir/build.make CMakeFiles/RayCaster.dir/src/player/player.cpp.s
+.PHONY : src/player/player.cpp.s
+
 src/render/render.o: src/render/render.cpp.o
 .PHONY : src/render/render.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/player/player.o"
+	@echo "... src/player/player.i"
+	@echo "... src/player/player.s"
 	@echo "... src/render/render.o"
 	@echo "... src/render/render.i"
 	@echo "... src/render/render.s"

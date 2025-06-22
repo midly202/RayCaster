@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/RayCaster.dir/link.d"
   "CMakeFiles/RayCaster.dir/src/main.cpp.o"
   "CMakeFiles/RayCaster.dir/src/main.cpp.o.d"
+  "CMakeFiles/RayCaster.dir/src/player/player.cpp.o"
+  "CMakeFiles/RayCaster.dir/src/player/player.cpp.o.d"
   "CMakeFiles/RayCaster.dir/src/render/render.cpp.o"
   "CMakeFiles/RayCaster.dir/src/render/render.cpp.o.d"
   "RayCaster"

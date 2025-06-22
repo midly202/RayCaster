@@ -258,4 +258,5 @@ CMakeFiles/RayCaster.dir/src/main.cpp.o: \
  /home/midly/code/RayCaster/include/SFML/Graphics/Sprite.hpp \
  /home/midly/code/RayCaster/include/SFML/Graphics/Text.hpp \
  /home/midly/code/RayCaster/include/SFML/Graphics/VertexBuffer.hpp \
- /home/midly/code/RayCaster/src/render/render.h
+ /home/midly/code/RayCaster/src/render/render.h \
+ /home/midly/code/RayCaster/src/player/player.h
