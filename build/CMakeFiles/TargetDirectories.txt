@@ -1,3 +1,0 @@
-/home/midly/code/RayCaster/build/CMakeFiles/RayCaster.dir
-/home/midly/code/RayCaster/build/CMakeFiles/edit_cache.dir
-/home/midly/code/RayCaster/build/CMakeFiles/rebuild_cache.dir
