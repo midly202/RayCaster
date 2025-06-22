@@ -24,8 +24,8 @@ void Display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     DrawMap();
-    DrawPlayer();
     CastRay();
+    DrawPlayer();
 }
 
 void DrawPlayer()
@@ -53,9 +53,11 @@ void DrawMap()
         for (tileX = 0; tileX < map.width; ++tileX)
         {
             if (map.map[tileY * map.width + tileX] == 1)
-                glColor3f(1, 1, 1);  // White for tile
+                glColor3f(1, 1, 1);
+            else if (map.map[tileY * map.width + tileX] == 2)
+                glColor3f(0.5, 0.5, 0.5);
             else
-                glColor3f(0, 0, 0);  // Black for empty space
+                glColor3f(0, 0, 0);
 
             offsetX = tileX * map.size;
             offsetY = tileY * map.size;
@@ -72,7 +74,7 @@ void DrawMap()
 
 void CastRay()
 {
-    int rayIndex{}, mapX{}, mapY{}, mapPosition{}, depthOfField{};
+    int rayIndex{}, mapX{}, mapY{}, mapPosition{}, depthOfField{}, distance{}, wallTypeHorizontal{}, wallTypeVertical{};
     double rayX{}, rayY{}, rayAngle{}, offsetX{}, offsetY{};
 
     rayAngle = player.angle - DEGREE * 30;
@@ -116,6 +118,7 @@ void CastRay()
             mapPosition = mapY * map.width + mapX;
             if (mapPosition > 0 && mapPosition < map.width * map.height && map.map[mapPosition] > 0)
             {
+                wallTypeHorizontal = map.map[mapPosition];
                 horizontalX = rayX;
                 horizontalY = rayY;
                 horizontalDistance = Distance(player.posX, player.posY, horizontalX, horizontalY, rayAngle);
@@ -159,9 +162,12 @@ void CastRay()
         {
             mapX = (int)(rayX) >> 6;
             mapY = (int)(rayY) >> 6;
-            mapPosition = mapY * map.width + mapX;
+            if (mapX >= 0 && mapX < map.width && mapY >= 0 && mapY < map.height) {
+                mapPosition = mapY * map.width + mapX;
+            }
             if (mapPosition > 0 && mapPosition < map.width * map.height && map.map[mapPosition] > 0)
             {
+                wallTypeVertical = map.map[mapPosition];
                 verticalX = rayX;
                 verticalY = rayY;
                 verticalDistance = Distance(player.posX, player.posY, verticalX, verticalY, rayAngle);
@@ -174,24 +180,49 @@ void CastRay()
                 depthOfField++;
             }
         }
-
         if (verticalDistance < horizontalDistance)
         {
             rayX = verticalX;
             rayY = verticalY;
+			distance = verticalDistance;
+            glColor3f(0.9, 0, 0);
+            if (wallTypeVertical == 2)
+                glColor3f(0, 0.9, 0);
         }
         else
         {
             rayX = horizontalX;
             rayY = horizontalY;
+			distance = horizontalDistance;
+            glColor3f(0.5, 0, 0);
+            if (wallTypeHorizontal == 2)
+                glColor3f(0, 0.9, 0);
         }
 
-        glColor3f(1, 0, 0);
         glLineWidth(3);
         glBegin(GL_LINES);
         glVertex2i(player.posX, player.posY);
         glVertex2i(rayX, rayY);
         glEnd();
+
+        //---Draw 3D Walls---
+        float ca = player.angle - rayAngle; 
+        if (ca < 0) 
+            ca += 2 * PI; 
+        if (ca > 2 * PI) 
+            ca -= 2 * PI; 
+
+        float lineH= (map.size * 320) / distance;
+        if (lineH > 320) 
+            lineH = 320; 
+        
+        float lineO = 160 - lineH / 2;
+        glLineWidth(8);
+        glBegin(GL_LINES);
+        glVertex2i(rayIndex * 8 + 530, lineO);
+        glVertex2i(rayIndex * 8 + 530, lineH + lineO);
+        glEnd();
+
         rayAngle += DEGREE;
         if (rayAngle < 0)
             rayAngle += 2 * PI;
