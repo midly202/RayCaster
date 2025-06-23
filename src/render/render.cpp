@@ -1,9 +1,10 @@
-#include "render.h"
-
+#if !defined(_WIN32)
 #include <GL/gl.h>
+#endif
+
 
 #include <cmath>
-
+#include "render.h"
 #include "Graphics.hpp"  // IWYU pragma: keep
 #include "OpenGL.hpp"    // IWYU pragma: keep
 #include "player.h"
