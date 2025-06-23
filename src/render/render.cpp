@@ -1,5 +1,7 @@
 #include "render.h"
 
+#include <GL/gl.h>
+
 #include <cmath>
 
 #include "Graphics.hpp"  // IWYU pragma: keep
@@ -29,7 +31,7 @@ void Display()
     {
         DrawMap(WIDTH, HEIGHT);
         DrawPlayer(WIDTH, HEIGHT);
-    } 
+    }
     CastRay(WIDTH, HEIGHT);
 }
 
@@ -45,7 +47,7 @@ void DrawPlayer(int windowWidth, int windowHeight)
 
     // Player location
     glColor3f(1, 1, 0);
-    glPointSize(RAY_WIDTH);
+    glPointSize((int)RAY_WIDTH);
     glBegin(GL_POINTS);
     glVertex2i(adjustedPosX, adjustedPosY);
     glEnd();
@@ -104,15 +106,22 @@ void Render3D(int rayIndex, float distance, float rayAngle, int wallType, bool s
     float lineO = (windowHeight / 2.0f) - (lineH / 2.0f);
 
     // Color based on wall type and ray side
-    if (wallType == 1 && shading)        glColor3f(0.9, 0, 0);
-    else if (wallType == 1 && !shading)  glColor3f(0.5, 0, 0);
-    else if (wallType == 2 && shading)   glColor3f(0, 0.9, 0);
-    else if (wallType == 2 && !shading)  glColor3f(0, 0.5, 0);
+    if (wallType == 1 && shading)
+        glColor3f(0.9, 0, 0);
+    else if (wallType == 1 && !shading)
+        glColor3f(0.5, 0, 0);
+    else if (wallType == 2 && shading)
+        glColor3f(0, 0.9, 0);
+    else if (wallType == 2 && !shading)
+        glColor3f(0, 0.5, 0);
 
-    glLineWidth(RAY_WIDTH);
-    glBegin(GL_LINES);
-    glVertex2i(rayIndex * RAY_WIDTH, lineO);
-    glVertex2i(rayIndex * RAY_WIDTH, lineH + lineO);
+    int x = rayIndex * RAY_WIDTH;
+
+    glBegin(GL_QUADS);
+    glVertex2i(x, lineO);
+    glVertex2i(x + RAY_WIDTH, lineO);
+    glVertex2i(x + RAY_WIDTH, lineO + lineH);
+    glVertex2i(x, lineO + lineH);
     glEnd();
 }
 
@@ -211,7 +220,8 @@ void CastRay(int windowWidth, int windowHeight)
         {
             mapX = (int)(rayX) >> 6;
             mapY = (int)(rayY) >> 6;
-            if (mapX >= 0 && mapX < map.width && mapY >= 0 && mapY < map.height) {
+            if (mapX >= 0 && mapX < map.width && mapY >= 0 && mapY < map.height)
+            {
                 mapPosition = mapY * map.width + mapX;
             }
             if (mapPosition > 0 && mapPosition < map.width * map.height && map.map[mapPosition] > 0)
@@ -234,7 +244,7 @@ void CastRay(int windowWidth, int windowHeight)
             shading = false;
             rayX = verticalX;
             rayY = verticalY;
-			distance = verticalDistance;
+            distance = verticalDistance;
 
             // Only for 2d rendering
             glColor3f(0.9, 0, 0);
@@ -246,7 +256,7 @@ void CastRay(int windowWidth, int windowHeight)
             shading = true;
             rayX = horizontalX;
             rayY = horizontalY;
-			distance = horizontalDistance;
+            distance = horizontalDistance;
 
             // Only for 2d rendering
             glColor3f(0.5, 0, 0);
@@ -264,8 +274,8 @@ void CastRay(int windowWidth, int windowHeight)
         {
             glLineWidth(3);
             glBegin(GL_LINES);
-            glVertex2i(player.posX + startX, player.posY + startY); // Adjusted player position
-            glVertex2i(rayX + startX, rayY + startY); // Adjusted ray position
+            glVertex2i(player.posX + startX, player.posY + startY);  // Adjusted player position
+            glVertex2i(rayX + startX, rayY + startY);                // Adjusted ray position
             glEnd();
         }
 
