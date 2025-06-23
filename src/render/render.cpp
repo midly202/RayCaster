@@ -10,44 +10,63 @@
 extern Player player;
 extern Map map;
 
+extern bool render3D;
+
 void Init()
 {
     glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
     InitPlayer();
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, 1024, 512, 0, -1, 1);
+    glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW);
 }
 
 void Display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    DrawMap();
-    CastRay();
-    DrawPlayer();
+    if (!render3D)
+    {
+        DrawMap(WIDTH, HEIGHT);
+        DrawPlayer(WIDTH, HEIGHT);
+    } 
+    CastRay(WIDTH, HEIGHT);
 }
 
-void DrawPlayer()
+void DrawPlayer(int windowWidth, int windowHeight)
 {
+    int centerX = windowWidth / 2;
+    int centerY = windowHeight / 2;
+    int startX = centerX - (map.width * map.size) / 2;
+    int startY = centerY - (map.height * map.size) / 2;
+
+    int adjustedPosX = player.posX + startX;
+    int adjustedPosY = player.posY + startY;
+
     // Player location
     glColor3f(1, 1, 0);
-    glPointSize(8);
+    glPointSize(RAY_WIDTH);
     glBegin(GL_POINTS);
-    glVertex2i(player.posX, player.posY);
+    glVertex2i(adjustedPosX, adjustedPosY);
     glEnd();
 
     // Player direction
     glLineWidth(3);
     glBegin(GL_LINES);
-    glVertex2i(player.posX, player.posY);
-    glVertex2i(player.posX + player.dirX * 5, player.posY + player.dirY * 5);
+    glVertex2i(adjustedPosX, adjustedPosY);
+    glVertex2i(adjustedPosX + player.dirX * 5, adjustedPosY + player.dirY * 5);
     glEnd();
 }
 
-void DrawMap()
+void DrawMap(int windowWidth, int windowHeight)
 {
     int tileX, tileY, offsetX, offsetY;
+
+    int centerX = windowWidth / 2;
+    int centerY = windowHeight / 2;
+    int startX = centerX - (map.width * map.size) / 2;
+    int startY = centerY - (map.height * map.size) / 2;
+
     for (tileY = 0; tileY < map.height; ++tileY)
     {
         for (tileX = 0; tileX < map.width; ++tileX)
@@ -59,8 +78,8 @@ void DrawMap()
             else
                 glColor3f(0, 0, 0);
 
-            offsetX = tileX * map.size;
-            offsetY = tileY * map.size;
+            offsetX = startX + tileX * map.size;
+            offsetY = startY + tileY * map.size;
 
             glBegin(GL_QUADS);
             glVertex2i(offsetX + 1, offsetY + 1);
@@ -72,19 +91,49 @@ void DrawMap()
     }
 }
 
-void CastRay()
+void Render3D(int rayIndex, float distance, float rayAngle, int wallType, bool shading, int windowWidth, int windowHeight)
+{
+    float ca = player.angle - rayAngle;
+
+    if (ca < 0) ca += 2 * PI;
+    if (ca > 2 * PI) ca -= 2 * PI;
+
+    float lineH = (map.size * windowHeight) / distance;
+    if (lineH > windowHeight) lineH = windowHeight;
+
+    float lineO = (windowHeight / 2.0f) - (lineH / 2.0f);
+
+    // Color based on wall type and ray side
+    if (wallType == 1 && shading)        glColor3f(0.9, 0, 0);
+    else if (wallType == 1 && !shading)  glColor3f(0.5, 0, 0);
+    else if (wallType == 2 && shading)   glColor3f(0, 0.9, 0);
+    else if (wallType == 2 && !shading)  glColor3f(0, 0.5, 0);
+
+    glLineWidth(RAY_WIDTH);
+    glBegin(GL_LINES);
+    glVertex2i(rayIndex * RAY_WIDTH, lineO);
+    glVertex2i(rayIndex * RAY_WIDTH, lineH + lineO);
+    glEnd();
+}
+
+void CastRay(int windowWidth, int windowHeight)
 {
     int rayIndex{}, mapX{}, mapY{}, mapPosition{}, depthOfField{}, distance{}, wallTypeHorizontal{}, wallTypeVertical{};
     double rayX{}, rayY{}, rayAngle{}, offsetX{}, offsetY{};
+    bool shading{};
 
-    rayAngle = player.angle - DEGREE * 30;
+    int centerX = windowWidth / 2;
+    int centerY = windowHeight / 2;
+    int startX = centerX - (map.width * map.size) / 2;
+    int startY = centerY - (map.height * map.size) / 2;
+
+    rayAngle = player.angle - (FOV / 2);
     if (rayAngle < 0)
         rayAngle += 2 * PI;
     if (rayAngle > 2 * PI)
         rayAngle -= 2 * PI;
 
-    // rayAngle = player.angle;
-    for (rayIndex = 0; rayIndex < 60; ++rayIndex)
+    for (rayIndex = 0; rayIndex < NUM_RAYS; ++rayIndex)
     {
         depthOfField = 0;
         float horizontalDistance = 1000000.0f;
@@ -182,48 +231,48 @@ void CastRay()
         }
         if (verticalDistance < horizontalDistance)
         {
+            shading = false;
             rayX = verticalX;
             rayY = verticalY;
 			distance = verticalDistance;
+
+            // Only for 2d rendering
             glColor3f(0.9, 0, 0);
             if (wallTypeVertical == 2)
                 glColor3f(0, 0.9, 0);
         }
         else
         {
+            shading = true;
             rayX = horizontalX;
             rayY = horizontalY;
 			distance = horizontalDistance;
+
+            // Only for 2d rendering
             glColor3f(0.5, 0, 0);
             if (wallTypeHorizontal == 2)
-                glColor3f(0, 0.9, 0);
+                glColor3f(0, 0.5, 0);
         }
 
-        glLineWidth(3);
-        glBegin(GL_LINES);
-        glVertex2i(player.posX, player.posY);
-        glVertex2i(rayX, rayY);
-        glEnd();
+        // Adjust ray positions for centered drawing
+        int centerX = windowWidth / 2;
+        int centerY = windowHeight / 2;
+        int startX = centerX - (map.width * map.size) / 2;
+        int startY = centerY - (map.height * map.size) / 2;
 
-        //---Draw 3D Walls---
-        float ca = player.angle - rayAngle; 
-        if (ca < 0) 
-            ca += 2 * PI; 
-        if (ca > 2 * PI) 
-            ca -= 2 * PI; 
+        if (!render3D)
+        {
+            glLineWidth(3);
+            glBegin(GL_LINES);
+            glVertex2i(player.posX + startX, player.posY + startY); // Adjusted player position
+            glVertex2i(rayX + startX, rayY + startY); // Adjusted ray position
+            glEnd();
+        }
 
-        float lineH= (map.size * 320) / distance;
-        if (lineH > 320) 
-            lineH = 320; 
-        
-        float lineO = 160 - lineH / 2;
-        glLineWidth(8);
-        glBegin(GL_LINES);
-        glVertex2i(rayIndex * 8 + 530, lineO);
-        glVertex2i(rayIndex * 8 + 530, lineH + lineO);
-        glEnd();
+        else
+            Render3D(rayIndex, distance, rayAngle, (verticalDistance < horizontalDistance) ? wallTypeVertical : wallTypeHorizontal, shading, WIDTH, HEIGHT);
 
-        rayAngle += DEGREE;
+        rayAngle += FOV / (float)NUM_RAYS;
         if (rayAngle < 0)
             rayAngle += 2 * PI;
         if (rayAngle > 2 * PI)

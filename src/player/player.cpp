@@ -6,10 +6,13 @@
 Player player;
 Map map;
 
+bool render3D = true;
+
 void InitPlayer()
 {
-	player.posX = 300;
-	player.posY = 300;
+	player.posX = 100;
+	player.posY = 100;
+    player.angle = 90 * DEGREE;
     player.dirX = cos(player.angle) * 5;
     player.dirY = sin(player.angle) * 5;
 }
@@ -40,13 +43,16 @@ void PlayerMove(sf::Keyboard::Key key)
 
     if (key == sf::Keyboard::D)
     {
-        {
-            player.angle += 0.1f;
-            if (player.angle > 2 * PI)
-                player.angle -= 2 * PI;
+        player.angle += 0.1f;
+        if (player.angle > 2 * PI)
+            player.angle -= 2 * PI;
 
-            player.dirX = cos(player.angle) * 5;
-            player.dirY = sin(player.angle) * 5;
-        }
+        player.dirX = cos(player.angle) * 5;
+        player.dirY = sin(player.angle) * 5;
+    }
+
+    if (key == sf::Keyboard::V)
+    {
+		render3D = !render3D;
     }
 }

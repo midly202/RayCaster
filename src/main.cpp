@@ -15,17 +15,13 @@ int WINAPI WinMain(
 int main()
 #endif
 {
-    // Create SFML window with OpenGL context
-    sf::Window window(sf::VideoMode(1024, 512), "RayCaster - Midly", sf::Style::Default, sf::ContextSettings(24));
+    sf::Window window(sf::VideoMode(800, 600), "RayCaster - Midly", sf::Style::Close, sf::ContextSettings(24));
     window.setVerticalSyncEnabled(true);
 
-    // Init GL
     Init();
 
-    // Main loop
     while (window.isOpen())
     {
-        // Event polling
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -36,10 +32,7 @@ int main()
                 PlayerMove(event.key.code);
         }
 
-        // Render
         Display();
-
-        // Swap buffers
         window.display();
     }
 
