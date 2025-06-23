@@ -2,12 +2,12 @@
 #include <GL/gl.h>
 #endif
 
-
 #include <cmath>
-#include "render.h"
+
 #include "Graphics.hpp"  // IWYU pragma: keep
 #include "OpenGL.hpp"    // IWYU pragma: keep
 #include "player.h"
+#include "render.h"
 #include "structs.h"
 
 extern Player player;
@@ -118,11 +118,10 @@ void Render3D(int rayIndex, float distance, float rayAngle, int wallType, bool s
 
     int x = rayIndex * RAY_WIDTH;
 
-    glBegin(GL_QUADS);
-    glVertex2i(x, lineO);
-    glVertex2i(x + RAY_WIDTH, lineO);
-    glVertex2i(x + RAY_WIDTH, lineO + lineH);
-    glVertex2i(x, lineO + lineH);
+    glLineWidth((int)RAY_WIDTH);
+    glBegin(GL_LINES);
+    glVertex2i(rayIndex * RAY_WIDTH, lineO);
+    glVertex2i(rayIndex * RAY_WIDTH, lineH + lineO);
     glEnd();
 }
 
