@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Graphics.hpp"  // IWYU pragma: keep
 #include "Window.hpp"    // IWYU pragma: keep
 #include "render.h"
@@ -47,7 +49,7 @@ int main()
 
         sf::Vector2i center = sf::Vector2i(WIDTH / 2, HEIGHT / 2);
         static bool firstMouse = true;
-        static int lastMouseX = center.x;
+        static int lastMouseX = WIDTH / 2;
 
         if (firstMouse) 
         {
@@ -108,19 +110,20 @@ int main()
             window.setPosition(mousePos - dragOffset);
         }
 
-        if (mouseLocked)
+        if (mouseLocked && event.type == sf::Event::MouseMoved)
         {
-            int mouseX = sf::Mouse::getPosition(window).x;
-            int deltaX = mouseX - center.x;
+            int mouseX = event.mouseMove.x;
+            int deltaX = mouseX - lastMouseX;
 
-            const float mouseSensitivity = 0.002f;
+            const float mouseSensitivity = 0.001f;
             player.angle += deltaX * mouseSensitivity;
             if (player.angle < 0) player.angle += 2 * PI;
             if (player.angle > 2 * PI) player.angle -= 2 * PI;
             player.dirX = cos(player.angle);
             player.dirY = sin(player.angle);
 
-            sf::Mouse::setPosition(center, window);
+            sf::Mouse::setPosition(sf::Vector2i(WIDTH / 2, HEIGHT / 2), window);
+            lastMouseX = WIDTH / 2;
         }
 
         PlayerMove(deltaTime);

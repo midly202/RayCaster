@@ -84,7 +84,7 @@ void DrawPauseMenu(sf::RenderWindow& window, const sf::Font& font)
     exitText.setFillColor(sf::Color::White);  
     exitText.setStyle(sf::Text::Bold);  
 
-    exitText.setPosition((float)(buttonX + buttonWidth / 2 - 20), (float)(buttonY + 5));  
+    exitText.setPosition((float)(buttonX + (float)buttonWidth / 2 - 20), (float)(buttonY + 5));  
 
     // Draw text  
     window.pushGLStates();
