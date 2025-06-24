@@ -174,7 +174,8 @@ void Render3D(int rayIndex, float distance, float rayAngle, int wallType, bool s
     if (ca < 0) ca += 2 * PI;
     if (ca > 2 * PI) ca -= 2 * PI;
 
-    float lineH = (map.size * windowHeight) / distance;
+    float projectionPlaneDist = (windowWidth / 2.0f) / tan(FOV / 2.0f);
+    float lineH = (map.size / distance) * projectionPlaneDist;
     if (lineH > windowHeight) lineH = windowHeight;
 
     float lineO = (windowHeight / 2.0f) - (lineH / 2.0f);
@@ -189,18 +190,19 @@ void Render3D(int rayIndex, float distance, float rayAngle, int wallType, bool s
     else if (wallType == 2 && !shading)
         glColor3f(0, 0.5, 0);
 
-    int x = rayIndex * RAY_WIDTH;
+    float rayScreenStep = (float)windowWidth / NUM_RAYS;
+    float x = rayIndex * rayScreenStep;
 
-    glLineWidth((int)RAY_WIDTH);
+    glLineWidth(rayScreenStep);
     glBegin(GL_LINES);
-    glVertex2i(rayIndex * RAY_WIDTH, lineO);
-    glVertex2i(rayIndex * RAY_WIDTH, lineH + lineO);
+    glVertex2i(x, lineO);
+    glVertex2i(x, lineO + lineH);
     glEnd();
 }
 
 void CastRay(int windowWidth, int windowHeight)
 {
-    int rayIndex{}, mapX{}, mapY{}, mapPosition{}, depthOfField{}, distance{}, wallTypeHorizontal{}, wallTypeVertical{};
+    int rayIndex{}, mapX{}, mapY{}, mapPosition{}, depthOfField{}, wallTypeHorizontal{}, wallTypeVertical{};
     double rayX{}, rayY{}, rayAngle{}, offsetX{}, offsetY{};
     bool shading{};
 
@@ -210,50 +212,52 @@ void CastRay(int windowWidth, int windowHeight)
     int startY = centerY - (map.height * map.size) / 2;
 
     rayAngle = player.angle - (FOV / 2);
-    if (rayAngle < 0)
-        rayAngle += 2 * PI;
-    if (rayAngle > 2 * PI)
-        rayAngle -= 2 * PI;
+    if (rayAngle < 0) rayAngle += 2 * PI;
+    if (rayAngle > 2 * PI) rayAngle -= 2 * PI;
 
     for (rayIndex = 0; rayIndex < NUM_RAYS; ++rayIndex)
     {
         depthOfField = 0;
-        float horizontalDistance = 1000000.0f;
+        float horizontalDistance = 1e6f;
         float horizontalX = player.posX;
         float horizontalY = player.posY;
-        float aTan = -1 / tan(rayAngle);
+        float aTan = -1.0f / tan(rayAngle);
+
+        // Horizontal ray-grid intersection
         if (rayAngle > PI)
         {
-            rayY = (((int)player.posY >> 6) << 6) - 0.0001f;
+            rayY = floor(player.posY / map.size) * map.size - 0.0001f;
             rayX = (player.posY - rayY) * aTan + player.posX;
-            offsetY = -64;
+            offsetY = -map.size;
             offsetX = -offsetY * aTan;
         }
-        if (rayAngle < PI)
+        else if (rayAngle < PI)
         {
-            rayY = (((int)player.posY >> 6) << 6) + 64;
+            rayY = floor(player.posY / map.size) * map.size + map.size;
             rayX = (player.posY - rayY) * aTan + player.posX;
-            offsetY = 64;
+            offsetY = map.size;
             offsetX = -offsetY * aTan;
         }
-        if (rayAngle == 0 || rayAngle == PI)
+        else
         {
             rayX = player.posX;
             rayY = player.posY;
-            depthOfField = 8;
+            depthOfField = std::max(map.width, map.height);
         }
-        while (depthOfField < 8)
+
+        while (depthOfField < std::max(map.width, map.height))
         {
-            mapX = (int)(rayX) >> 6;
-            mapY = (int)(rayY) >> 6;
+            mapX = (int)(rayX / map.size);
+            mapY = (int)(rayY / map.size);
             mapPosition = mapY * map.width + mapX;
-            if (mapPosition > 0 && mapPosition < map.width * map.height && map.map[mapPosition] > 0)
+
+            if (mapX >= 0 && mapX < map.width && mapY >= 0 && mapY < map.height && map.map[mapPosition] > 0)
             {
                 wallTypeHorizontal = map.map[mapPosition];
                 horizontalX = rayX;
                 horizontalY = rayY;
                 horizontalDistance = Distance(player.posX, player.posY, horizontalX, horizontalY, rayAngle);
-                depthOfField = 8;
+                depthOfField = std::max(map.width, map.height);
             }
             else
             {
@@ -263,47 +267,47 @@ void CastRay(int windowWidth, int windowHeight)
             }
         }
 
-        // Vertical line check
+        // Vertical ray-grid intersection
         depthOfField = 0;
-        float verticalDistance = 1000000.0f;
+        float verticalDistance = 1e6f;
         float verticalX = player.posX;
         float verticalY = player.posY;
         float nTan = -tan(rayAngle);
-        if (rayAngle > PI2 && rayAngle < PI3)
-        {
-            rayX = (((int)player.posX >> 6) << 6) - 0.0001f;
-            rayY = (player.posX - rayX) * nTan + player.posY;
-            offsetX = -64;
-            offsetY = -offsetX * nTan;
-        }
+
         if (rayAngle < PI2 || rayAngle > PI3)
         {
-            rayX = (((int)player.posX >> 6) << 6) + 64;
+            rayX = floor(player.posX / map.size) * map.size + map.size;
             rayY = (player.posX - rayX) * nTan + player.posY;
-            offsetX = 64;
+            offsetX = map.size;
             offsetY = -offsetX * nTan;
         }
-        if (rayAngle == 0 || rayAngle == PI)
+        else if (rayAngle > PI2 && rayAngle < PI3)
+        {
+            rayX = floor(player.posX / map.size) * map.size - 0.0001f;
+            rayY = (player.posX - rayX) * nTan + player.posY;
+            offsetX = -map.size;
+            offsetY = -offsetX * nTan;
+        }
+        else
         {
             rayX = player.posX;
             rayY = player.posY;
-            depthOfField = 8;
+            depthOfField = std::max(map.width, map.height);
         }
-        while (depthOfField < 8)
+
+        while (depthOfField < std::max(map.width, map.height))
         {
-            mapX = (int)(rayX) >> 6;
-            mapY = (int)(rayY) >> 6;
-            if (mapX >= 0 && mapX < map.width && mapY >= 0 && mapY < map.height)
-            {
-                mapPosition = mapY * map.width + mapX;
-            }
-            if (mapPosition > 0 && mapPosition < map.width * map.height && map.map[mapPosition] > 0)
+            mapX = (int)(rayX / map.size);
+            mapY = (int)(rayY / map.size);
+            mapPosition = mapY * map.width + mapX;
+
+            if (mapX >= 0 && mapX < map.width && mapY >= 0 && mapY < map.height && map.map[mapPosition] > 0)
             {
                 wallTypeVertical = map.map[mapPosition];
                 verticalX = rayX;
                 verticalY = rayY;
                 verticalDistance = Distance(player.posX, player.posY, verticalX, verticalY, rayAngle);
-                depthOfField = 8;
+                depthOfField = std::max(map.width, map.height);
             }
             else
             {
@@ -312,54 +316,47 @@ void CastRay(int windowWidth, int windowHeight)
                 depthOfField++;
             }
         }
+
+        // Choose closer hit
+        float finalDistance;
         if (verticalDistance < horizontalDistance)
         {
             shading = false;
             rayX = verticalX;
             rayY = verticalY;
-            distance = verticalDistance;
+            finalDistance = verticalDistance;
 
-            // Only for 2d rendering
-            glColor3f(0.9, 0, 0);
-            if (wallTypeVertical == 2)
-                glColor3f(0, 0.9, 0);
+            glColor3f(0.9f, 0, 0);
+            if (wallTypeVertical == 2) glColor3f(0, 0.9f, 0);
         }
         else
         {
             shading = true;
             rayX = horizontalX;
             rayY = horizontalY;
-            distance = horizontalDistance;
+            finalDistance = horizontalDistance;
 
-            // Only for 2d rendering
-            glColor3f(0.5, 0, 0);
-            if (wallTypeHorizontal == 2)
-                glColor3f(0, 0.5, 0);
+            glColor3f(0.5f, 0, 0);
+            if (wallTypeHorizontal == 2) glColor3f(0, 0.5f, 0);
         }
-
-        // Adjust ray positions for centered drawing
-        int centerX = windowWidth / 2;
-        int centerY = windowHeight / 2;
-        int startX = centerX - (map.width * map.size) / 2;
-        int startY = centerY - (map.height * map.size) / 2;
 
         if (!render3D)
         {
             glLineWidth(3);
             glBegin(GL_LINES);
-            glVertex2i(player.posX + startX, player.posY + startY);  // Adjusted player position
-            glVertex2i(rayX + startX, rayY + startY);                // Adjusted ray position
+            glVertex2i(player.posX + startX, player.posY + startY);
+            glVertex2i(rayX + startX, rayY + startY);
             glEnd();
         }
-
         else
-            Render3D(rayIndex, distance, rayAngle, (verticalDistance < horizontalDistance) ? wallTypeVertical : wallTypeHorizontal, shading, WIDTH, HEIGHT);
+        {
+            Render3D(rayIndex, finalDistance, rayAngle,
+                (verticalDistance < horizontalDistance) ? wallTypeVertical : wallTypeHorizontal,
+                shading, windowWidth, windowHeight);
+        }
 
-        rayAngle += FOV / (float)NUM_RAYS;
-        if (rayAngle < 0)
-            rayAngle += 2 * PI;
-        if (rayAngle > 2 * PI)
-            rayAngle -= 2 * PI;
+        rayAngle += FOV / static_cast<float>(NUM_RAYS);
+        rayAngle = fmod(rayAngle + 2 * PI, 2 * PI);
     }
 }
 
@@ -369,7 +366,8 @@ float Distance(float startX, float startY, float endX, float endY, float angle)
     float deltaY = endY - startY;
 
     float euclideanDistance = sqrt(deltaX * deltaX + deltaY * deltaY);
-    float adjustedDistance = euclideanDistance * cos(player.angle - angle);
+    float correctedAngle = fmod(player.angle - angle + 2 * PI, 2 * PI);
+    float adjustedDistance = euclideanDistance * cos(correctedAngle);
 
     return adjustedDistance;
 }

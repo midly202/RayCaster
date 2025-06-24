@@ -127,7 +127,8 @@ int main()
             window.setPosition(mousePos - dragOffset);
         }
 
-        PlayerMove(deltaTime);
+        if (!showPauseMenu)
+            PlayerMove(deltaTime);
         Display(window);
         window.display();
 
