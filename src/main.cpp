@@ -17,6 +17,7 @@ bool shouldExit = false;
 
 #ifdef _WIN32
 #include <windows.h>
+bool useMouse = true;
 int WINAPI WinMain(
     _In_     HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -24,6 +25,7 @@ int WINAPI WinMain(
     _In_     int       nCmdShow
 )
 #else
+bool useMouse = false;
 int main()
 #endif
 {
@@ -75,6 +77,22 @@ int main()
                 sf::Mouse::setPosition(center, window);
             }
 
+            if (mouseLocked && useMouse && event.type == sf::Event::MouseMoved)
+            {
+                int mouseX = event.mouseMove.x;
+                int deltaX = mouseX - lastMouseX;
+
+                const float mouseSensitivity = 0.001f;
+                player.angle += deltaX * mouseSensitivity;
+                if (player.angle < 0) player.angle += 2 * PI;
+                if (player.angle > 2 * PI) player.angle -= 2 * PI;
+                player.dirX = cos(player.angle);
+                player.dirY = sin(player.angle);
+
+                sf::Mouse::setPosition(sf::Vector2i(WIDTH / 2, HEIGHT / 2), window);
+                lastMouseX = WIDTH / 2;
+            }
+
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Escape)
@@ -108,22 +126,6 @@ int main()
         {
             sf::Vector2i mousePos = sf::Mouse::getPosition();
             window.setPosition(mousePos - dragOffset);
-        }
-
-        if (mouseLocked && event.type == sf::Event::MouseMoved)
-        {
-            int mouseX = event.mouseMove.x;
-            int deltaX = mouseX - lastMouseX;
-
-            const float mouseSensitivity = 0.001f;
-            player.angle += deltaX * mouseSensitivity;
-            if (player.angle < 0) player.angle += 2 * PI;
-            if (player.angle > 2 * PI) player.angle -= 2 * PI;
-            player.dirX = cos(player.angle);
-            player.dirY = sin(player.angle);
-
-            sf::Mouse::setPosition(sf::Vector2i(WIDTH / 2, HEIGHT / 2), window);
-            lastMouseX = WIDTH / 2;
         }
 
         PlayerMove(deltaTime);

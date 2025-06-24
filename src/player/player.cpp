@@ -6,6 +6,7 @@
 extern Player player;
 extern Map map;
 extern bool render3D;
+extern bool useMouse;
 
 void InitPlayer()
 {
@@ -35,18 +36,38 @@ void PlayerMove(float deltaTime)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        float strafeX = cos(player.angle - PI / 2.0f);
-        float strafeY = sin(player.angle - PI / 2.0f);
-        player.posX += strafeX * deltaTime * moveSpeed;
-        player.posY += strafeY * deltaTime * moveSpeed;
+        if (useMouse)
+        {
+            float strafeX = cos(player.angle - PI / 2.0f);
+            float strafeY = sin(player.angle - PI / 2.0f);
+            player.posX += strafeX * deltaTime * moveSpeed;
+            player.posY += strafeY * deltaTime * moveSpeed;
+        }
+        else
+        {
+            player.angle -= rotSpeed * deltaTime;
+            if (player.angle < 0) player.angle += 2 * PI;
+            player.dirX = cos(player.angle);
+            player.dirY = sin(player.angle);
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        float strafeX = cos(player.angle + PI / 2.0f);
-        float strafeY = sin(player.angle + PI / 2.0f);
-        player.posX += strafeX * deltaTime * moveSpeed;
-        player.posY += strafeY * deltaTime * moveSpeed;
+        if (useMouse)
+        {
+            float strafeX = cos(player.angle + PI / 2.0f);
+            float strafeY = sin(player.angle + PI / 2.0f);
+            player.posX += strafeX * deltaTime * moveSpeed;
+            player.posY += strafeY * deltaTime * moveSpeed;
+        }
+        else
+        {
+            player.angle += rotSpeed * deltaTime;
+            if (player.angle > 2 * PI) player.angle -= 2 * PI;
+            player.dirX = cos(player.angle);
+            player.dirY = sin(player.angle);
+        }
     }
 
     static bool togglePressed = false;
