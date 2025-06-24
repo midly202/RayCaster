@@ -12,8 +12,11 @@
 
 extern Player player;
 extern Map map;
+extern sf::Font font;
 
 extern bool render3D;
+extern bool showPauseMenu;
+extern bool shouldExit;
 
 void Init()
 {
@@ -25,15 +28,85 @@ void Init()
     glMatrixMode(GL_MODELVIEW);
 }
 
-void Display()
+void Display(sf::RenderWindow& window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     if (!render3D)
     {
         DrawMap(WIDTH, HEIGHT);
         DrawPlayer(WIDTH, HEIGHT);
     }
     CastRay(WIDTH, HEIGHT);
+
+    if (showPauseMenu)
+        DrawPauseMenu(window, font);
+}
+
+void DrawPauseMenu(sf::RenderWindow& window, const sf::Font& font)
+{  
+    const int menuWidth = 200;  
+    const int menuHeight = 100;  
+    const int centerX = WIDTH / 2;  
+    const int centerY = HEIGHT / 2;  
+    const int menuX = centerX - menuWidth / 2;  
+    const int menuY = centerY - menuHeight / 2;  
+
+    // Background rectangle  
+    glColor3f(0.1f, 0.1f, 0.1f);  
+    glBegin(GL_QUADS);  
+    glVertex2i(menuX, menuY);  
+    glVertex2i(menuX + menuWidth, menuY);  
+    glVertex2i(menuX + menuWidth, menuY + menuHeight);  
+    glVertex2i(menuX, menuY + menuHeight);  
+    glEnd();  
+
+    // Simple "Exit" button  
+    const int buttonWidth = 120;  
+    const int buttonHeight = 30;  
+    const int buttonX = centerX - buttonWidth / 2;  
+    const int buttonY = centerY - buttonHeight / 2;  
+
+    // Button color  
+    glColor3f(0.8f, 0.1f, 0.1f);  
+    glBegin(GL_QUADS);  
+    glVertex2i(buttonX, buttonY);  
+    glVertex2i(buttonX + buttonWidth, buttonY);  
+    glVertex2i(buttonX + buttonWidth, buttonY + buttonHeight);  
+    glVertex2i(buttonX, buttonY + buttonHeight);  
+    glEnd();  
+    
+    // Exit text
+    sf::Text exitText;  
+    exitText.setFont(font);  
+    exitText.setString("EXIT");  
+    exitText.setCharacterSize(18);  
+    exitText.setFillColor(sf::Color::White);  
+    exitText.setStyle(sf::Text::Bold);  
+
+    exitText.setPosition((float)(buttonX + buttonWidth / 2 - 20), (float)(buttonY + 5));  
+
+    // Draw text  
+    window.pushGLStates();
+    window.draw(exitText);
+    window.popGLStates();
+
+    // Handle mouse click
+    static bool mousePressedLastFrame = false;  
+    bool mousePressedNow = sf::Mouse::isButtonPressed(sf::Mouse::Left);  
+
+    if (mousePressedNow && !mousePressedLastFrame)  
+    {  
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window); 
+
+        if (mousePos.x >= buttonX && mousePos.x <= buttonX + buttonWidth &&  
+            mousePos.y >= buttonY && mousePos.y <= buttonY + buttonHeight)  
+        {  
+            shouldExit = true;  
+        }  
+    }  
+
+    mousePressedLastFrame = mousePressedNow;  
 }
 
 void DrawPlayer(int windowWidth, int windowHeight)
@@ -48,7 +121,7 @@ void DrawPlayer(int windowWidth, int windowHeight)
 
     // Player location
     glColor3f(1, 1, 0);
-    glPointSize((int)RAY_WIDTH);
+    glPointSize((int)5);
     glBegin(GL_POINTS);
     glVertex2i(adjustedPosX, adjustedPosY);
     glEnd();

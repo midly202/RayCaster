@@ -1,6 +1,8 @@
-void Display();
+void Display(sf::RenderWindow& window);
 
 void Init();
+
+void DrawPauseMenu(sf::RenderWindow& window, const sf::Font& font);
 
 void DrawPlayer(int windowWidth, int windowHeight);
 

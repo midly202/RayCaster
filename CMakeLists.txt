@@ -23,6 +23,7 @@ target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/include/SFML)
 target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/src/render)
 target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/src/player)
 target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/src/utils)
+target_include_directories(RayCaster PRIVATE ${CMAKE_SOURCE_DIR}/src/font)
 
 # Platform-specific logic
 if(WIN32)

@@ -2,4 +2,4 @@
 
 void InitPlayer();
 
-void PlayerMove(sf::Keyboard::Key key);
+void PlayerMove(float deltaTime);

@@ -3,56 +3,61 @@
 #include <Window.hpp>
 #include <math.h>
 
-Player player;
-Map map;
-
-bool render3D = true;
+extern Player player;
+extern Map map;
+extern bool render3D;
 
 void InitPlayer()
 {
 	player.posX = 100;
 	player.posY = 100;
     player.angle = 90 * DEGREE;
-    player.dirX = cos(player.angle) * 5;
-    player.dirY = sin(player.angle) * 5;
+    player.dirX = cos(player.angle);
+    player.dirY = sin(player.angle);
 }
 
-void PlayerMove(sf::Keyboard::Key key)
+void PlayerMove(float deltaTime)
 {
-    if (key == sf::Keyboard::W) 
+    const float moveSpeed = 200.0f;
+    const float rotSpeed = 3.0f;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
     {
-        player.posX += player.dirX;
-        player.posY += player.dirY;
+        player.posX += player.dirX * deltaTime * moveSpeed;
+        player.posY += player.dirY * deltaTime * moveSpeed;
     }
 
-    if (key == sf::Keyboard::A)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
     {
-        player.angle -= 0.1f;
-        if (player.angle < 0)
-            player.angle += 2 * PI;
-
-        player.dirX = cos(player.angle) * 5;
-        player.dirY = sin(player.angle) * 5;
+        player.posX -= player.dirX * deltaTime * moveSpeed;
+        player.posY -= player.dirY * deltaTime * moveSpeed;
     }
 
-    if (key == sf::Keyboard::S)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        player.posX -= player.dirX;
-		player.posY -= player.dirY;
+        float strafeX = cos(player.angle - PI / 2.0f);
+        float strafeY = sin(player.angle - PI / 2.0f);
+        player.posX += strafeX * deltaTime * moveSpeed;
+        player.posY += strafeY * deltaTime * moveSpeed;
     }
 
-    if (key == sf::Keyboard::D)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        player.angle += 0.1f;
-        if (player.angle > 2 * PI)
-            player.angle -= 2 * PI;
-
-        player.dirX = cos(player.angle) * 5;
-        player.dirY = sin(player.angle) * 5;
+        float strafeX = cos(player.angle + PI / 2.0f);
+        float strafeY = sin(player.angle + PI / 2.0f);
+        player.posX += strafeX * deltaTime * moveSpeed;
+        player.posY += strafeY * deltaTime * moveSpeed;
     }
 
-    if (key == sf::Keyboard::V)
+    static bool togglePressed = false;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) 
     {
-		render3D = !render3D;
+        if (!togglePressed) 
+        {
+            render3D = !render3D;
+            togglePressed = true;
+        }
     }
+    else
+        togglePressed = false;
 }
