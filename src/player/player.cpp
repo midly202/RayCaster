@@ -1,7 +1,10 @@
 #include "player.h"
-#include "structs.h"
-#include <Window.hpp>
+
 #include <math.h>
+
+#include <Window.hpp>
+
+#include "structs.h"
 
 extern Player player;
 extern Map map;
@@ -10,8 +13,8 @@ extern bool useMouse;
 
 void InitPlayer()
 {
-	player.posX = 100;
-	player.posY = 100;
+    player.posX = 100;
+    player.posY = 100;
     player.angle = 90 * DEGREE;
     player.dirX = cos(player.angle);
     player.dirY = sin(player.angle);
@@ -22,13 +25,13 @@ void PlayerMove(float deltaTime)
     const float moveSpeed = 200.0f;
     const float rotSpeed = 3.0f;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         player.posX += player.dirX * deltaTime * moveSpeed;
         player.posY += player.dirY * deltaTime * moveSpeed;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         player.posX -= player.dirX * deltaTime * moveSpeed;
         player.posY -= player.dirY * deltaTime * moveSpeed;
@@ -71,9 +74,9 @@ void PlayerMove(float deltaTime)
     }
 
     static bool togglePressed = false;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
     {
-        if (!togglePressed) 
+        if (!togglePressed)
         {
             render3D = !render3D;
             togglePressed = true;

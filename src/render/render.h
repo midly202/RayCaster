@@ -1,3 +1,5 @@
+#include "Graphics.hpp"  // IWYU pragma: keep
+
 void Display(sf::RenderWindow& window);
 
 void Init();

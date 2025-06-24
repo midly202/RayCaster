@@ -44,69 +44,69 @@ void Display(sf::RenderWindow& window)
 }
 
 void DrawPauseMenu(sf::RenderWindow& window, const sf::Font& font)
-{  
-    const int menuWidth = 200;  
-    const int menuHeight = 100;  
-    const int centerX = WIDTH / 2;  
-    const int centerY = HEIGHT / 2;  
-    const int menuX = centerX - menuWidth / 2;  
-    const int menuY = centerY - menuHeight / 2;  
+{
+    const int menuWidth = 200;
+    const int menuHeight = 100;
+    const int centerX = WIDTH / 2;
+    const int centerY = HEIGHT / 2;
+    const int menuX = centerX - menuWidth / 2;
+    const int menuY = centerY - menuHeight / 2;
 
-    // Background rectangle  
-    glColor3f(0.1f, 0.1f, 0.1f);  
-    glBegin(GL_QUADS);  
-    glVertex2i(menuX, menuY);  
-    glVertex2i(menuX + menuWidth, menuY);  
-    glVertex2i(menuX + menuWidth, menuY + menuHeight);  
-    glVertex2i(menuX, menuY + menuHeight);  
-    glEnd();  
+    // Background rectangle
+    glColor3f(0.1f, 0.1f, 0.1f);
+    glBegin(GL_QUADS);
+    glVertex2i(menuX, menuY);
+    glVertex2i(menuX + menuWidth, menuY);
+    glVertex2i(menuX + menuWidth, menuY + menuHeight);
+    glVertex2i(menuX, menuY + menuHeight);
+    glEnd();
 
-    // Simple "Exit" button  
-    const int buttonWidth = 120;  
-    const int buttonHeight = 30;  
-    const int buttonX = centerX - buttonWidth / 2;  
-    const int buttonY = centerY - buttonHeight / 2;  
+    // Simple "Exit" button
+    const int buttonWidth = 120;
+    const int buttonHeight = 30;
+    const int buttonX = centerX - buttonWidth / 2;
+    const int buttonY = centerY - buttonHeight / 2;
 
-    // Button color  
-    glColor3f(0.8f, 0.1f, 0.1f);  
-    glBegin(GL_QUADS);  
-    glVertex2i(buttonX, buttonY);  
-    glVertex2i(buttonX + buttonWidth, buttonY);  
-    glVertex2i(buttonX + buttonWidth, buttonY + buttonHeight);  
-    glVertex2i(buttonX, buttonY + buttonHeight);  
-    glEnd();  
-    
+    // Button color
+    glColor3f(0.8f, 0.1f, 0.1f);
+    glBegin(GL_QUADS);
+    glVertex2i(buttonX, buttonY);
+    glVertex2i(buttonX + buttonWidth, buttonY);
+    glVertex2i(buttonX + buttonWidth, buttonY + buttonHeight);
+    glVertex2i(buttonX, buttonY + buttonHeight);
+    glEnd();
+
     // Exit text
-    sf::Text exitText;  
-    exitText.setFont(font);  
-    exitText.setString("EXIT");  
-    exitText.setCharacterSize(18);  
-    exitText.setFillColor(sf::Color::White);  
-    exitText.setStyle(sf::Text::Bold);  
+    sf::Text exitText;
+    exitText.setFont(font);
+    exitText.setString("EXIT");
+    exitText.setCharacterSize(18);
+    exitText.setFillColor(sf::Color::White);
+    exitText.setStyle(sf::Text::Bold);
 
-    exitText.setPosition((float)(buttonX + (float)buttonWidth / 2 - 20), (float)(buttonY + 5));  
+    exitText.setPosition((float)(buttonX + (float)buttonWidth / 2 - 20), (float)(buttonY + 5));
 
-    // Draw text  
+    // Draw text
     window.pushGLStates();
     window.draw(exitText);
     window.popGLStates();
 
     // Handle mouse click
-    static bool mousePressedLastFrame = false;  
-    bool mousePressedNow = sf::Mouse::isButtonPressed(sf::Mouse::Left);  
+    static bool mousePressedLastFrame = false;
+    bool mousePressedNow = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
-    if (mousePressedNow && !mousePressedLastFrame)  
-    {  
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window); 
+    if (mousePressedNow && !mousePressedLastFrame)
+    {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
-        if (mousePos.x >= buttonX && mousePos.x <= buttonX + buttonWidth &&  
-            mousePos.y >= buttonY && mousePos.y <= buttonY + buttonHeight)  
-        {  
-            shouldExit = true;  
-        }  
-    }  
+        if (mousePos.x >= buttonX && mousePos.x <= buttonX + buttonWidth &&
+            mousePos.y >= buttonY && mousePos.y <= buttonY + buttonHeight)
+        {
+            shouldExit = true;
+        }
+    }
 
-    mousePressedLastFrame = mousePressedNow;  
+    mousePressedLastFrame = mousePressedNow;
 }
 
 void DrawPlayer(int windowWidth, int windowHeight)

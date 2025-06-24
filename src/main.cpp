@@ -2,10 +2,10 @@
 
 #include "Graphics.hpp"  // IWYU pragma: keep
 #include "Window.hpp"    // IWYU pragma: keep
-#include "render.h"
-#include "player.h"
-#include "structs.h"
 #include "arial.h"
+#include "player.h"
+#include "render.h"
+#include "structs.h"
 
 Player player;
 Map map;
@@ -19,11 +19,10 @@ bool shouldExit = false;
 #include <windows.h>
 bool useMouse = true;
 int WINAPI WinMain(
-    _In_     HINSTANCE hInstance,
+    _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
-    _In_     LPSTR     lpCmdLine,
-    _In_     int       nCmdShow
-)
+    _In_ LPSTR lpCmdLine,
+    _In_ int nCmdShow)
 #else
 bool useMouse = false;
 int main()
@@ -41,7 +40,7 @@ int main()
     bool mouseLocked = true;
     sf::Mouse::setPosition(sf::Vector2i(WIDTH / 2, HEIGHT / 2), window);
     window.setMouseCursorVisible(false);
-    
+
     font.loadFromMemory(arial_ttf, arial_ttf_len);
 
     while (window.isOpen())
@@ -53,7 +52,7 @@ int main()
         static bool firstMouse = true;
         static int lastMouseX = WIDTH / 2;
 
-        if (firstMouse) 
+        if (firstMouse)
         {
             sf::Mouse::setPosition(center, window);
             firstMouse = false;
