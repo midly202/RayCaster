@@ -17,8 +17,10 @@ struct Player
 
 struct Map
 {
-	static const int width = 8, height = 8, size = 64;
-	int map[width * height] =
+	inline static const int width = 8;
+    inline static const int height = 8;
+    inline static const int size = width * height;
+	int map[size] =
 	{
 		1, 1, 1, 1, 1, 1, 1, 1,
 		1, 0, 1, 0, 0, 0, 0, 1,
